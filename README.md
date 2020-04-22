@@ -1,3 +1,7 @@
+# CI Status
+
+[![Actions Status](https://github.com/luis-gustavo/ios-recruiting-brazil/workflows/CI/badge.svg)](https://github.com/luis-gustavo/ios-recruiting-brazil/actions)
+
 # Concrete iOS Recruit Challenge
 
 ---
