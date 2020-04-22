@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests
+      run: xcodebuild -project 'Movs.xcodeproj' -scheme 'Movs' -destination 'platform=iOS Simulator,name=iPhone 8' test
+
+    - name: Build app
+      run: xcodebuild -project 'Movs.xcodeproj' -scheme 'Movs' -destination 'generic/platform=iOS' -configuration Release build CODE_SIGNING_ALLOWED=NO
