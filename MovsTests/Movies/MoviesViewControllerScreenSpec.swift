@@ -14,7 +14,7 @@ import XCTest
 final class MoviesViewControllerScreenSpec: XCTestCase {
 
     func testScreenBackgroundColor() {
-        let screen = MoviesViewControllerSreen(frame: .zero)
+        let screen = MoviesListViewControllerSreen(frame: .zero)
 
         XCTAssertEqual(screen.backgroundColor, .green)
     }

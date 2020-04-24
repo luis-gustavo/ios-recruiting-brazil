@@ -23,10 +23,10 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         return movieName
     }()
 
-    lazy var likeButton: UIButton = {
-        let likeButton = UIButton(frame: .zero)
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        return likeButton
+    lazy var favoriteButton: UIButton = {
+        let favoriteButton = UIButton(frame: .zero)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        return favoriteButton
     }()
 
     static let cellId = "MovieCollectionViewCell"
@@ -49,7 +49,7 @@ extension MoviesCollectionViewCell: ViewCodable {
     func buildViewHierarchy() {
         addSubview(movieImage)
         addSubview(movieName)
-        addSubview(likeButton)
+        addSubview(favoriteButton)
     }
 
     func setupConstraints() {
@@ -66,11 +66,11 @@ extension MoviesCollectionViewCell: ViewCodable {
         movieName.topAnchor.constraint(equalTo: self.movieImage.bottomAnchor, constant: self.frame.size.height * 0.05).isActive = true
         movieName.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
 
-        // Like button
-        likeButton.heightAnchor.constraint(equalTo: likeButton.widthAnchor).isActive = true
-        likeButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
-        likeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.05).isActive = true
-        likeButton.centerYAnchor.constraint(equalTo: movieName.centerYAnchor).isActive = true
+        // Favorite button
+        favoriteButton.heightAnchor.constraint(equalTo: favoriteButton.widthAnchor).isActive = true
+        favoriteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
+        favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.05).isActive = true
+        favoriteButton.centerYAnchor.constraint(equalTo: movieName.centerYAnchor).isActive = true
 
     }
 

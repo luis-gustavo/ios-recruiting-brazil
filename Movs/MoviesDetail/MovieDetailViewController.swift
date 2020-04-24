@@ -6,4 +6,8 @@
 //  Copyright © 2020 Luis Gustavo Avelino de Lima Jacinto. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MovieDetailsViewController: UIViewController {
+    
+}

@@ -11,9 +11,11 @@ import UIKit
 class MoviesListViewControllerSreen: UIView {
 
     lazy var searchBar: UISearchBar = {
-        let textField = UISearchBar(frame: .zero)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search"
+        searchBar.backgroundColor = Colors.customDarkYellow
+        return searchBar
     }()
 
     lazy var collectionView: UICollectionView = {
