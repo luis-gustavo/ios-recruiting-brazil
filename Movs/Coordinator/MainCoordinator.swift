@@ -18,14 +18,23 @@ final class MainCoordinator: Coordinatable {
     }
 
     func start() {
-        let moviesNavigationController = UINavigationController()
-        moviesNavigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        let moviesCoordinator = MoviesCoordinator(navigationController: moviesNavigationController)
-        children.append(moviesCoordinator)
+
+        // Movies list
+        let moviesListNavigationController = UINavigationController()
+        moviesListNavigationController.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "list_tabbar")!, tag: 0)
+        let moviesListCoordinator = MoviesListCoordinator(navigationController: moviesListNavigationController)
+        children.append(moviesListCoordinator)
+
+
+        // Favorite movies
+        let favoriteMoviesNavigationController = UINavigationController()
+        favoriteMoviesNavigationController.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "favorite_tabbar")!, tag: 1)
+        let favoriteMoviesCoordinator = FavoriteMoviesCoordinator(navigationController: favoriteMoviesNavigationController)
+        children.append(favoriteMoviesCoordinator)
 
         children.forEach({ $0.start() })
 
-        tabBarController.setViewControllers([moviesNavigationController], animated: true)
+        tabBarController.setViewControllers([moviesListNavigationController, favoriteMoviesNavigationController], animated: true)
     }
 }
 

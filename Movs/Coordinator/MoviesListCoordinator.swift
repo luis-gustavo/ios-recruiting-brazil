@@ -8,16 +8,17 @@
 
 import UIKit
 
-class MoviesCoordinator: Coordinatable {
+class MoviesListCoordinator: Coordinatable {
 
     let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.setNavigationBarHidden(true, animated: true)
     }
 
     func start() {
-        let moviesViewController = MoviesViewController()
+        let moviesViewController = MoviesListViewController()
         navigationController.pushViewController(moviesViewController, animated: true)
     }
 }

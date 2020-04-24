@@ -1,5 +1,5 @@
 //
-//  MoviesViewModel.swift
+//  MoviesListViewModel.swift
 //  Movs
 //
 //  Created by Luis Gustavo Avelino de Lima Jacinto on 22/04/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-class MoviesViewModel {
+class MoviesListViewModel {
 
 }
