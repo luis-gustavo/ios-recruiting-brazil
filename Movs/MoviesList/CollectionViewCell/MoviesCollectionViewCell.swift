@@ -10,6 +10,9 @@ import UIKit
 
 class MoviesCollectionViewCell: UICollectionViewCell {
 
+    let favoriteEmptyImage = UIImage(named: "favorite_empty")!
+    let favoriteEmptyFilled = UIImage(named: "favorite_filled")!
+
     // MARK: - Properties
     lazy var movieImage: UIImageView = {
         let movieImage = UIImageView(frame: .zero)
@@ -20,12 +23,14 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     lazy var movieName: UILabel = {
         let movieName = UILabel(frame: .zero)
         movieName.translatesAutoresizingMaskIntoConstraints = false
+        movieName.textAlignment = .center
         return movieName
     }()
 
     lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.setImage(favoriteEmptyImage, for: .normal)
         return favoriteButton
     }()
 
@@ -69,13 +74,13 @@ extension MoviesCollectionViewCell: ViewCodable {
         // Favorite button
         favoriteButton.heightAnchor.constraint(equalTo: favoriteButton.widthAnchor).isActive = true
         favoriteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
-        favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.05).isActive = true
+        favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.1).isActive = true
         favoriteButton.centerYAnchor.constraint(equalTo: movieName.centerYAnchor).isActive = true
 
     }
 
     func setupAdditionalConfiguration() {
-        backgroundColor = Colors.customGrey
+        backgroundColor = Colors.customDarkBlue
         movieName.textColor = Colors.customYellow
     }
 }

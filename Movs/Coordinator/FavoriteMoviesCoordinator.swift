@@ -20,6 +20,5 @@ class FavoriteMoviesCoordinator: Coordinatable {
     func start() {
         let favoriteMoviesViewController = FavoriteMoviesViewController()
         navigationController.pushViewController(favoriteMoviesViewController, animated: true)
-        
     }
 }

@@ -13,8 +13,17 @@ class MoviesListViewControllerSreen: UIView {
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Search"
-        searchBar.backgroundColor = Colors.customDarkYellow
+        searchBar.isTranslucent = false
+        searchBar.barTintColor = Colors.customYellow
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = Colors.customYellow.cgColor
+
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = Colors.customDarkYellow
+
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = Colors.customGrey
+
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : Colors.customGrey])
+
         return searchBar
     }()
 
@@ -52,7 +61,7 @@ extension MoviesListViewControllerSreen: ViewCodable {
     func setupConstraints() {
 
         // Searchbar
-        searchBar.topAnchor.constraint(equalTo: self.topAnchor, constant: frame.size.height * 0.05).isActive = true
+        searchBar.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         searchBar.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
@@ -62,7 +71,6 @@ extension MoviesListViewControllerSreen: ViewCodable {
         collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: frame.size.height * 0.05).isActive = true
         collectionView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.9).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
     }
 
     func setupAdditionalConfiguration() {
