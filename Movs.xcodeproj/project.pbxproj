@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6E052B0A245347D30000D267 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E052B09245347D30000D267 /* FavoriteMoviesViewController.swift */; };
+		6E2538A32454852F00161A5F /* MovieDetailViewControllerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538A22454852F00161A5F /* MovieDetailViewControllerScreen.swift */; };
+		6E2538A52454982C00161A5F /* MoviesListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538A42454982C00161A5F /* MoviesListViewControllerDelegate.swift */; };
 		6E40D79F2450C64900FF265F /* MoviesViewControllerScreenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D79E2450C64900FF265F /* MoviesViewControllerScreenSpec.swift */; };
 		6E40D7A12450E00100FF265F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D7A02450E00100FF265F /* Network.swift */; };
 		6E40D7A42450E22000FF265F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D7A32450E22000FF265F /* Movie.swift */; };
@@ -42,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		6E052B09245347D30000D267 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
+		6E2538A22454852F00161A5F /* MovieDetailViewControllerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewControllerScreen.swift; sourceTree = "<group>"; };
+		6E2538A42454982C00161A5F /* MoviesListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		6E40D7922450C5CD00FF265F /* MovsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E40D7962450C5CD00FF265F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E40D79D2450C64900FF265F /* MovsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 		6E42DA5C2451E9300081195F /* MoviesDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6E2538A22454852F00161A5F /* MovieDetailViewControllerScreen.swift */,
 				6E42DA5F2451E97B0081195F /* MovieDetailViewController.swift */,
 			);
 			path = MoviesDetail;
@@ -217,6 +222,7 @@
 				6E42DA5A2451E8CF0081195F /* MoviesListViewController.swift */,
 				6EBA54172450AFC3002EDE33 /* MoviesListViewModel.swift */,
 				6EBA54192450B056002EDE33 /* MoviesListViewControllerScreen.swift */,
+				6E2538A42454982C00161A5F /* MoviesListViewControllerDelegate.swift */,
 			);
 			path = MoviesList;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E2538A32454852F00161A5F /* MovieDetailViewControllerScreen.swift in Sources */,
 				6E40D7A12450E00100FF265F /* Network.swift in Sources */,
 				6E42DA582451D9DE0081195F /* Colors.swift in Sources */,
 				6E42DA5B2451E8CF0081195F /* MoviesListViewController.swift in Sources */,
@@ -357,6 +364,7 @@
 				6EBA54102450A863002EDE33 /* ViewCodable.swift in Sources */,
 				6E052B0A245347D30000D267 /* FavoriteMoviesViewController.swift in Sources */,
 				6E42DA622451E9C30081195F /* FavoriteMoviesCoordinator.swift in Sources */,
+				6E2538A52454982C00161A5F /* MoviesListViewControllerDelegate.swift in Sources */,
 				6E40D7A82450FC1500FF265F /* NetworkResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

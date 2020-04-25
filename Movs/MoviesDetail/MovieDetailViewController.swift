@@ -9,5 +9,12 @@
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
-    
+
+    lazy var screen = MovieDetailViewControllerScreen(frame: view.bounds)
+
+    override func loadView() {
+        super.loadView()
+
+        view = screen
+    }
 }

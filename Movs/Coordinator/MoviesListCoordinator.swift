@@ -17,7 +17,15 @@ class MoviesListCoordinator: Coordinatable {
     }
 
     func start() {
-        let moviesViewController = MoviesListViewController()
-        navigationController.pushViewController(moviesViewController, animated: true)
+        let moviesViewViewController = MoviesListViewController()
+        navigationController.pushViewController(moviesViewViewController, animated: true)
+        moviesViewViewController.delegate = self
+    }
+}
+
+extension MoviesListCoordinator: MoviesListViewControllerDelegate {
+    func showDetail() {
+        let movieDetailsViewController = MovieDetailsViewController()
+        navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 }

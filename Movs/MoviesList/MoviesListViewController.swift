@@ -17,6 +17,7 @@ class MoviesListViewController: UIViewController {
     let cellId = "cell"
     var movies = [Movie]()
     var movieImages = [Int: UIImage?]()
+    var delegate: MoviesListViewControllerDelegate?
 
     // MARK: - LoadView
     override func loadView() {
@@ -27,7 +28,10 @@ class MoviesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        fetchPopularMovies()
+    }
 
+    func fetchPopularMovies() {
         viewModel.popularMovies { movies in
             self.movies = movies
             DispatchQueue.main.async {
@@ -49,7 +53,14 @@ extension MoviesListViewController {
     }
 }
 
-extension MoviesListViewController: UICollectionViewDelegate { }
+extension MoviesListViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        delegate?.showDetail()
+    }
+
+}
 
 extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
 
