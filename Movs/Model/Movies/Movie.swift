@@ -25,6 +25,7 @@ class Movie: Decodable {
     }
     let genreIds: [Int]
     let overview: String
+    var favorited = false
 
     enum CodingKeys: String, CodingKey {
         case title = "title"

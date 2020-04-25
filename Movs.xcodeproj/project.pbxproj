@@ -14,6 +14,8 @@
 		6E2538A92454CECC00161A5F /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538A82454CECC00161A5F /* Genre.swift */; };
 		6E2538AD2454CF6A00161A5F /* GenreNetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538AC2454CF6A00161A5F /* GenreNetworkResponse.swift */; };
 		6E2538AF2454D17F00161A5F /* GenreSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538AE2454D17F00161A5F /* GenreSingleton.swift */; };
+		6E2538B12454DB0500161A5F /* FavoriteMoviesViewControllerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538B02454DB0500161A5F /* FavoriteMoviesViewControllerScreen.swift */; };
+		6E2538B42454DDF800161A5F /* FavoriteMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2538B32454DDF800161A5F /* FavoriteMovieTableViewCell.swift */; };
 		6E40D79F2450C64900FF265F /* MoviesViewControllerScreenSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D79E2450C64900FF265F /* MoviesViewControllerScreenSpec.swift */; };
 		6E40D7A12450E00100FF265F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D7A02450E00100FF265F /* Network.swift */; };
 		6E40D7A42450E22000FF265F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E40D7A32450E22000FF265F /* Movie.swift */; };
@@ -54,6 +56,8 @@
 		6E2538A82454CECC00161A5F /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		6E2538AC2454CF6A00161A5F /* GenreNetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreNetworkResponse.swift; sourceTree = "<group>"; };
 		6E2538AE2454D17F00161A5F /* GenreSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSingleton.swift; sourceTree = "<group>"; };
+		6E2538B02454DB0500161A5F /* FavoriteMoviesViewControllerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewControllerScreen.swift; sourceTree = "<group>"; };
+		6E2538B32454DDF800161A5F /* FavoriteMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieTableViewCell.swift; sourceTree = "<group>"; };
 		6E40D7922450C5CD00FF265F /* MovsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E40D7962450C5CD00FF265F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E40D79D2450C64900FF265F /* MovsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -118,6 +122,14 @@
 			path = Genre;
 			sourceTree = "<group>";
 		};
+		6E2538B22454DDC500161A5F /* FavoriteMovieTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6E2538B32454DDF800161A5F /* FavoriteMovieTableViewCell.swift */,
+			);
+			path = FavoriteMovieTableViewCell;
+			sourceTree = "<group>";
+		};
 		6E40D7932450C5CD00FF265F /* MovsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,7 +186,9 @@
 		6E42DA632451E9DE0081195F /* FavoriteMovies */ = {
 			isa = PBXGroup;
 			children = (
+				6E2538B22454DDC500161A5F /* FavoriteMovieTableViewCell */,
 				6E052B09245347D30000D267 /* FavoriteMoviesViewController.swift */,
+				6E2538B02454DB0500161A5F /* FavoriteMoviesViewControllerScreen.swift */,
 			);
 			path = FavoriteMovies;
 			sourceTree = "<group>";
@@ -378,6 +392,7 @@
 				6E2538AD2454CF6A00161A5F /* GenreNetworkResponse.swift in Sources */,
 				6E40D7A12450E00100FF265F /* Network.swift in Sources */,
 				6E2538AF2454D17F00161A5F /* GenreSingleton.swift in Sources */,
+				6E2538B42454DDF800161A5F /* FavoriteMovieTableViewCell.swift in Sources */,
 				6E42DA582451D9DE0081195F /* Colors.swift in Sources */,
 				6E2538A92454CECC00161A5F /* Genre.swift in Sources */,
 				6E42DA5B2451E8CF0081195F /* MoviesListViewController.swift in Sources */,
@@ -387,6 +402,7 @@
 				6EBA54262450B9DE002EDE33 /* MoviesListCoordinator.swift in Sources */,
 				6E42DA602451E97B0081195F /* MovieDetailViewController.swift in Sources */,
 				6EBA54182450AFC3002EDE33 /* MoviesListViewModel.swift in Sources */,
+				6E2538B12454DB0500161A5F /* FavoriteMoviesViewControllerScreen.swift in Sources */,
 				6EBA54232450B5E0002EDE33 /* MainCoordinator.swift in Sources */,
 				6EBA54132450AF32002EDE33 /* Coordinatable.swift in Sources */,
 				6EBA53FB2450A7E1002EDE33 /* SceneDelegate.swift in Sources */,
@@ -452,7 +468,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A93689JNSR;
+				DEVELOPMENT_TEAM = 4EQ948BHF9;
 				INFOPLIST_FILE = MovsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -587,13 +603,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4EQ948BHF9;
+				DEVELOPMENT_TEAM = A93689JNSR;
 				INFOPLIST_FILE = Movs/Core/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.bepiducb.Movs;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.bepiducb.Mov;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -605,13 +621,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4EQ948BHF9;
+				DEVELOPMENT_TEAM = A93689JNSR;
 				INFOPLIST_FILE = Movs/Core/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.bepiducb.Movs;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.bepiducb.Mov;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

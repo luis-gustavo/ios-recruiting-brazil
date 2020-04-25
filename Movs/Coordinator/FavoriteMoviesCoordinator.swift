@@ -14,7 +14,6 @@ class FavoriteMoviesCoordinator: Coordinatable {
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.setNavigationBarHidden(true, animated: true)
     }
 
     func start() {
