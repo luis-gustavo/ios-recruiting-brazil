@@ -17,6 +17,7 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     lazy var movieImage: UIImageView = {
         let movieImage = UIImageView(frame: .zero)
         movieImage.translatesAutoresizingMaskIntoConstraints = false
+        movieImage.image = UIImage(named: "SplashScreen")
         return movieImage
     }()
 
@@ -24,6 +25,7 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         let movieName = UILabel(frame: .zero)
         movieName.translatesAutoresizingMaskIntoConstraints = false
         movieName.textAlignment = .center
+        movieName.numberOfLines = 5
         return movieName
     }()
 
@@ -66,16 +68,18 @@ extension MoviesCollectionViewCell: ViewCodable {
         movieImage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
 
         // Movie name
-        movieName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1).isActive = true
-        movieName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
-        movieName.topAnchor.constraint(equalTo: self.movieImage.bottomAnchor, constant: self.frame.size.height * 0.05).isActive = true
-        movieName.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        movieName.topAnchor.constraint(equalTo: self.movieImage.bottomAnchor).isActive = true
+        movieName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        movieName.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
 
         // Favorite button
         favoriteButton.heightAnchor.constraint(equalTo: favoriteButton.widthAnchor).isActive = true
         favoriteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.1).isActive = true
         favoriteButton.centerYAnchor.constraint(equalTo: movieName.centerYAnchor).isActive = true
+
+        // Continue movie name
+        movieName.trailingAnchor.constraint(equalTo: self.favoriteButton.leadingAnchor).isActive = true
 
     }
 

@@ -39,8 +39,11 @@ class MoviesListViewControllerSreen: UIView {
         return collectionView
     }()
 
+    let navigationController: UINavigationController?
+
     // MARK: - Inits
-    override init(frame: CGRect) {
+    init(frame: CGRect, navigationController: UINavigationController?) {
+        self.navigationController = navigationController
         super.init(frame: frame)
 
         setupView()
@@ -75,6 +78,21 @@ extension MoviesListViewControllerSreen: ViewCodable {
 
     func setupAdditionalConfiguration() {
 
+        // View
+        backgroundColor = .white
+
+        // Collection view
+        collectionView.backgroundColor = .white
+
+        // Navigation Controller
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = Colors.customYellow
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.layoutIfNeeded()
+        self.navigationController?.navigationBar.topItem?.title = "Movies"
+        let textAttributes = [NSAttributedString.Key.foregroundColor: Colors.customDarkBlue]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
 
 }

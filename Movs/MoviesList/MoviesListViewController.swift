@@ -13,36 +13,27 @@ class MoviesListViewController: UIViewController {
 
     // MARK: - Constants
     let viewModel = MoviesListViewModel()
-    lazy var screen = MoviesListViewControllerSreen(frame: view.bounds)
-    var subscriptions = [AnyCancellable]()
+    lazy var screen = MoviesListViewControllerSreen(frame: view.bounds, navigationController: self.navigationController)
     let cellId = "cell"
+    var movies = [Movie]()
+    var movieImages = [Int: UIImage?]()
 
     // MARK: - LoadView
     override func loadView() {
         super.loadView()
-
         self.view = screen
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
 
-        Network.shared.getPopularMovies().sink(receiveCompletion: { completion in
-            switch completion {
-            case .failure(let networkError):
-                switch networkError {
-                case .withoutResponse: print("without response")
-                case .networkError(let error ): print("network error: \(error.localizedDescription)")
-                case .decodingError(let error ): print("decoding error: \(error.localizedDescription)")
-                }
-            case .finished: print("finished")
+        viewModel.popularMovies { movies in
+            self.movies = movies
+            DispatchQueue.main.async {
+                self.screen.collectionView.reloadData()
             }
-        }) { networkResponse in
-            print(networkResponse.results.forEach({ print($0) }))
-        }.store(in: &subscriptions)
-
+        }
     }
 }
 
@@ -77,13 +68,13 @@ extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfCellsPerRow))
 
 
-        return CGSize(width: size, height: size)
+        return CGSize(width: CGFloat(size), height: screen.frame.size.height * 0.4)
     }
 }
 
 extension MoviesListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return movies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -94,10 +85,26 @@ extension MoviesListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        cell.movieName.text = "THOR"
+        let movie = movies[indexPath.row]
+
+        cell.movieName.text = movie.title
+        if let image = movieImages[indexPath.row] {
+            cell.movieImage.image = image
+        } else {
+            cell.movieImage.image = nil
+            DispatchQueue.main.async {
+                self.viewModel.poster(posterPath: movie.posterPath) { data in
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        self.movieImages[indexPath.row] = image
+                        cell.movieImage.image = image
+                    }
+                }
+            }
+
+        }
 
         return cell
     }
-
 
 }

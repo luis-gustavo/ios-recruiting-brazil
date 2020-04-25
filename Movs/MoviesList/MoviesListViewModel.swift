@@ -7,7 +7,29 @@
 //
 
 import Foundation
+import Combine
 
 class MoviesListViewModel {
+
+    private var subscriptions = [AnyCancellable]()
+
+    func popularMovies(completion: @escaping ([Movie]) -> Void) {
+        Network
+            .shared
+            .getPopularMovies()
+            .sink(receiveCompletion: { (completion) in
+                debugPrint(completion)
+            }, receiveValue: { networkResponse in
+                completion(networkResponse.results)
+            }).store(in: &subscriptions)
+    }
+
+    func poster(posterPath: String, completion: @escaping (Data) -> Void) {
+        Network.shared.getPoster(posterPath: posterPath).sink(receiveCompletion: { completion in
+            debugPrint(completion)
+        }) { data in
+            completion(data)
+        }.store(in: &subscriptions)
+    }
 
 }
