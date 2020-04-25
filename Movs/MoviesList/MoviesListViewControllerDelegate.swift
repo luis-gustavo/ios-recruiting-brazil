@@ -6,8 +6,8 @@
 //  Copyright © 2020 Luis Gustavo Avelino de Lima Jacinto. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol MoviesListViewControllerDelegate {
-    func showDetail()
+    func showDetail(for movie: Movie, with poster: UIImage?)
 }

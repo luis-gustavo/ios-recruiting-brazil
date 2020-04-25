@@ -56,8 +56,11 @@ extension MoviesListViewController {
 extension MoviesListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        delegate?.showDetail()
+
+        let movie = movies[indexPath.row]
+        let poster = movieImages[indexPath.row] ?? nil
+
+        delegate?.showDetail(for: movie, with: poster)
     }
 
 }

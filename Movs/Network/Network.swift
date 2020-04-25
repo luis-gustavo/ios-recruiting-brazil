@@ -22,14 +22,16 @@ class Network {
         return url
     }
 
+    private let genreUrl = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=0d2e6be0621e98b506e2892bcb3a5b16&language=en-US")!
+
     private let popularMoviesUrl = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=0d2e6be0621e98b506e2892bcb3a5b16")!
 
-    func getPopularMovies() -> AnyPublisher<NetworkResponse, NetworkError> {
+    func getPopularMovies() -> AnyPublisher<MoviesNetworkResponse, NetworkError> {
         return URLSession
             .shared
             .dataTaskPublisher(for: popularMoviesUrl)
             .map(\.data)
-            .decode(type: NetworkResponse.self, decoder: JSONDecoder())
+            .decode(type: MoviesNetworkResponse.self, decoder: JSONDecoder())
             .mapError({ $0 as? NetworkError ?? NetworkError.decodingError($0) })
             .eraseToAnyPublisher()
     }
@@ -41,6 +43,17 @@ class Network {
             .dataTaskPublisher(for: posterUrl(posterPath: posterPath))
             .map(\.data)
             .mapError({ NetworkError.networkError($0) })
+            .eraseToAnyPublisher()
+    }
+
+    func requestGenre() -> AnyPublisher<GenreNetworkResponse, NetworkError> {
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: genreUrl)
+            .map(\.data)
+            .decode(type: GenreNetworkResponse.self,
+                    decoder: JSONDecoder())
+            .mapError({ $0 as? NetworkError ?? NetworkError.decodingError($0) })
             .eraseToAnyPublisher()
     }
 }

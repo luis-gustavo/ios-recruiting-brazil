@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NetworkResponse: Decodable {
+class MoviesNetworkResponse: Decodable {
     let page: Int
     let results: [Movie]
 
