@@ -17,6 +17,12 @@ class MoviesListViewController: UIViewController {
     var delegate: MoviesListViewControllerDelegate?
     var movieImages = [Int: UIImage?]()
     var movies = [Movie]()
+    var filteredMovies = [Movie]()
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        return tapGesture
+    }()
 
     // MARK: - LoadView
     override func loadView() {
@@ -31,16 +37,26 @@ class MoviesListViewController: UIViewController {
         fetchPopularMovies()
     }
 
-//    // MARK: - ViewWillAppear
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        viewModel = MoviesListViewModel()
-//        screen.collectionView.reloadData()
-//    }
+    // MARK: - ViewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        screen.addGestureRecognizer(tapGesture)
+    }
+
+    // MARK: - ViewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        screen.removeGestureRecognizer(tapGesture)
+    }
+
+    @objc func hideKeyboard() {
+        screen.endEditing(true)
+    }
 
     func fetchPopularMovies() {
         viewModel.popularMovies { movies in
             self.movies = movies
+            self.filteredMovies = movies
             DispatchQueue.main.async {
                 self.screen.collectionView.reloadData()
             }
@@ -51,6 +67,7 @@ class MoviesListViewController: UIViewController {
 extension MoviesListViewController {
     func setup() {
         setupCollectionView()
+        setupSearchBar()
     }
 
     func setupCollectionView() {
@@ -58,14 +75,18 @@ extension MoviesListViewController {
         screen.collectionView.delegate = self
         screen.collectionView.dataSource = self
     }
+
+    func setupSearchBar() {
+        screen.searchBar.delegate = self
+    }
 }
 
 extension MoviesListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let movie = movies[indexPath.row]
-        let poster = movieImages[indexPath.row] ?? nil
+        let movie = filteredMovies[indexPath.row]
+        let poster = movieImages[movie.id] ?? nil
 
         delegate?.showDetail(for: movie, with: poster, favoritedMovies: viewModel.favoritedMovies)
     }
@@ -95,7 +116,7 @@ extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
 
 extension MoviesListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,7 +127,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
 
         cell.favoriteButton.tag = indexPath.row
         cell.favoriteButton.delegate = self
@@ -115,7 +136,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
         cell.movieName.text = movie.title
 
-        if let image = movieImages[indexPath.row] {
+        if let image = movieImages[movie.id] {
             cell.hideActivityIndicator()
             cell.movieImage.image = image
         } else {
@@ -125,7 +146,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
                 self.viewModel.poster(posterPath: movie.posterPath) { data in
                     DispatchQueue.main.async {
                         let image = UIImage(data: data)
-                        self.movieImages[indexPath.row] = image
+                        self.movieImages[movie.id] = image
                         cell.movieImage.image = image
                         cell.hideActivityIndicator()
                     }
@@ -142,9 +163,25 @@ extension MoviesListViewController: UICollectionViewDataSource {
 extension MoviesListViewController: FavoriteButtonDelegate {
     func button(_ sender: FavoriteButton, with tag: Int) {
 
-        let movie = movies[tag]
+        let movie = filteredMovies[tag]
         viewModel.favoriteMovie(movie) {
             self.screen.collectionView.reloadData()
         }
+    }
+}
+
+extension MoviesListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredMovies = movies
+
+        if !searchText.isEmpty {
+            filteredMovies = movies.filter({ $0.title.contains(searchText) })
+        }
+
+        screen.collectionView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
