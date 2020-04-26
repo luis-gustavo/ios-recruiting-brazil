@@ -55,8 +55,8 @@ class MoviesListViewController: UIViewController {
 
     func fetchPopularMovies() {
         viewModel.popularMovies { movies in
-            self.movies = movies
-            self.filteredMovies = movies
+            self.movies = self.movies + movies
+            self.filteredMovies = self.movies
             DispatchQueue.main.async {
                 self.screen.collectionView.reloadData()
             }
@@ -89,6 +89,14 @@ extension MoviesListViewController: UICollectionViewDelegate {
         let poster = movieImages[movie.id] ?? nil
 
         delegate?.showDetail(for: movie, with: poster, favoritedMovies: viewModel.favoritedMovies)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+        if bottomEdge >= scrollView.contentSize.height {
+            PageSingleton.shared.page += 1
+            self.fetchPopularMovies()
+        }
     }
 
 }

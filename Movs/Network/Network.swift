@@ -22,14 +22,16 @@ class Network {
         return url
     }
 
+    private func popularMoviesUrl(_ page: Int) -> URL {
+        return URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=0d2e6be0621e98b506e2892bcb3a5b16&page=\(page)")!
+    }
+
     private let genreUrl = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=0d2e6be0621e98b506e2892bcb3a5b16&language=en-US")!
 
-    private let popularMoviesUrl = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=0d2e6be0621e98b506e2892bcb3a5b16")!
-
-    func getPopularMovies() -> AnyPublisher<MoviesNetworkResponse, NetworkError> {
+    func getPopularMovies(page: Int) -> AnyPublisher<MoviesNetworkResponse, NetworkError> {
         return URLSession
             .shared
-            .dataTaskPublisher(for: popularMoviesUrl)
+            .dataTaskPublisher(for: popularMoviesUrl(page))
             .map(\.data)
             .decode(type: MoviesNetworkResponse.self, decoder: JSONDecoder())
             .mapError({ $0 as? NetworkError ?? NetworkError.decodingError($0) })

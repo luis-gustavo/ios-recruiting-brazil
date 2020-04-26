@@ -8,14 +8,13 @@
 
 import UIKit
 import XCTest
-
 @testable import Movs
 
 final class MoviesViewControllerScreenSpec: XCTestCase {
 
     func testScreenBackgroundColor() {
-        let screen = MoviesListViewControllerSreen(frame: .zero)
+        let screen = MoviesListViewControllerSreen(frame: .zero, navigationController: UINavigationController())
 
-        XCTAssertEqual(screen.backgroundColor, .green)
+        XCTAssertEqual(screen.backgroundColor, .white)
     }
 }

@@ -20,9 +20,9 @@ class MoviesListViewControllerSreen: UIView {
 
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = Colors.customDarkYellow
 
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = Colors.customGrey
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = Colors.customDarkBlue
 
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : Colors.customGrey])
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor : Colors.customDarkBlue])
 
         return searchBar
     }()

@@ -29,7 +29,7 @@ class MoviesListViewModel {
     func popularMovies(completion: @escaping ([Movie]) -> Void) {
         Network
             .shared
-            .getPopularMovies()
+            .getPopularMovies(page: PageSingleton.shared.page)
             .sink(receiveCompletion: { (completion) in
                 debugPrint(completion)
             }, receiveValue: { networkResponse in
