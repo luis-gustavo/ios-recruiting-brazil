@@ -10,9 +10,6 @@ import UIKit
 
 class MoviesCollectionViewCell: UICollectionViewCell {
 
-    let favoriteEmptyImage = UIImage(named: "favorite_empty")!
-    let favoriteEmptyFilled = UIImage(named: "favorite_filled")!
-
     // MARK: - Properties
     lazy var movieImage: UIImageView = {
         let movieImage = UIImageView(frame: .zero)
@@ -32,8 +29,13 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(favoriteEmptyImage, for: .normal)
         return favoriteButton
+    }()
+
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(frame: .zero)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
     }()
 
     static let cellId = "MovieCollectionViewCell"
@@ -41,12 +43,21 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func showActivityIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+
+    func hideActivityIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
     }
 
 }
@@ -57,6 +68,7 @@ extension MoviesCollectionViewCell: ViewCodable {
         addSubview(movieImage)
         addSubview(movieName)
         addSubview(favoriteButton)
+        addSubview(activityIndicator)
     }
 
     func setupConstraints() {
@@ -81,10 +93,16 @@ extension MoviesCollectionViewCell: ViewCodable {
         // Continue movie name
         movieName.trailingAnchor.constraint(equalTo: self.favoriteButton.leadingAnchor).isActive = true
 
+        // Activity Indicator
+        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        activityIndicator.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
+        activityIndicator.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2).isActive = true
     }
 
     func setupAdditionalConfiguration() {
         backgroundColor = Colors.customDarkBlue
         movieName.textColor = Colors.customYellow
+        activityIndicator.isHidden = true
     }
 }

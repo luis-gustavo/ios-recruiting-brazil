@@ -103,15 +103,18 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
         cell.movieName.text = movie.title
         if let image = movieImages[indexPath.row] {
+            cell.hideActivityIndicator()
             cell.movieImage.image = image
         } else {
             cell.movieImage.image = nil
+            cell.showActivityIndicator()
             DispatchQueue.main.async {
                 self.viewModel.poster(posterPath: movie.posterPath) { data in
                     DispatchQueue.main.async {
                         let image = UIImage(data: data)
                         self.movieImages[indexPath.row] = image
                         cell.movieImage.image = image
+                        cell.hideActivityIndicator()
                     }
                 }
             }
