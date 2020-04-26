@@ -34,6 +34,7 @@ final class MainCoordinator: Coordinatable {
         // Favorite movies
         let favoriteMoviesNavigationController = UINavigationController()
         let favoriteMoviesCoordinator = FavoriteMoviesCoordinator(navigationController: favoriteMoviesNavigationController)
+        favoriteMoviesCoordinator.delegate = self
         children.append(favoriteMoviesCoordinator)
 
         children.forEach({ $0.start() })
@@ -46,3 +47,14 @@ final class MainCoordinator: Coordinatable {
     }
 }
 
+
+extension MainCoordinator: FavoriteMoviesCoordinatorDelegate {
+    func dismissedFavoriteMoviesViewController(favoritedMovies: [Movie]) {
+        if let moviesListCoordinator = children.first.map({ $0 as? MoviesListCoordinator }),
+            let moviesListViewController = moviesListCoordinator?.navigationController.viewControllers.first.map({ $0 as? MoviesListViewController }) {
+
+            moviesListViewController?.viewModel.favoritedMovies = favoritedMovies
+            moviesListViewController?.screen.collectionView.reloadData()
+        }
+    }
+}

@@ -1,21 +1,23 @@
 //
-//  MoviesListViewModel.swift
+//  FavoriteMoviesViewModel.swift
 //  Movs
 //
-//  Created by Luis Gustavo Avelino de Lima Jacinto on 22/04/20.
+//  Created by Luis Gustavo Avelino de Lima Jacinto on 26/04/20.
 //  Copyright © 2020 Luis Gustavo Avelino de Lima Jacinto. All rights reserved.
 //
 
-import Foundation
 import Combine
+import Foundation
 
-class MoviesListViewModel {
+class FavoriteMoviesViewModel {
 
-    private var subscriptions = [AnyCancellable]()
     var favoritedMovies = [Movie]()
+    private var subscriptions = [AnyCancellable]()
 
     init() {
-        Database.shared.retrieveData(completion: { result in
+        Database
+            .shared
+            .retrieveData(completion: { result in
             switch result {
             case .failure(let databaseError):
                 assertionFailure("Database error, unable to retrieve favorited movies")
@@ -26,23 +28,15 @@ class MoviesListViewModel {
         })
     }
 
-    func popularMovies(completion: @escaping ([Movie]) -> Void) {
+    func poster(posterPath: String, completion: @escaping (Data) -> Void) {
         Network
             .shared
-            .getPopularMovies()
-            .sink(receiveCompletion: { (completion) in
-                debugPrint(completion)
-            }, receiveValue: { networkResponse in
-                completion(networkResponse.results)
-            }).store(in: &subscriptions)
-    }
-
-    func poster(posterPath: String, completion: @escaping (Data) -> Void) {
-        Network.shared.getPoster(posterPath: posterPath).sink(receiveCompletion: { completion in
+            .getPoster(posterPath: posterPath)
+            .sink(receiveCompletion: { completion in
             debugPrint(completion)
-        }) { data in
-            completion(data)
-        }.store(in: &subscriptions)
+            }) { data in
+                completion(data)
+            }.store(in: &subscriptions)
     }
 
     func favoriteMovie(_ movie: Movie, completion: @escaping () -> Void) {

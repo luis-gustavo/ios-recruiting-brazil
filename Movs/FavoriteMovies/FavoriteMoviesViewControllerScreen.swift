@@ -37,6 +37,7 @@ extension FavoriteMoviesViewControllerScreen: ViewCodable {
     }
 
     func setupConstraints() {
+        // Table view
         tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -53,5 +54,8 @@ extension FavoriteMoviesViewControllerScreen: ViewCodable {
         self.navigationController?.navigationBar.topItem?.title = "Favorite Movies"
         let textAttributes = [NSAttributedString.Key.foregroundColor: Colors.customDarkBlue]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+
+        // Table view
+        tableView.separatorStyle = .none
     }
 }

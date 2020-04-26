@@ -14,7 +14,6 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     lazy var movieImage: UIImageView = {
         let movieImage = UIImageView(frame: .zero)
         movieImage.translatesAutoresizingMaskIntoConstraints = false
-        movieImage.image = UIImage(named: "SplashScreen")
         return movieImage
     }()
 
@@ -34,8 +33,8 @@ class MoviesCollectionViewCell: UICollectionViewCell {
 
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(frame: .zero)
-        activityIndicator.style = .large
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .white
         return activityIndicator
     }()
 
@@ -87,7 +86,7 @@ extension MoviesCollectionViewCell: ViewCodable {
 
         // Favorite button
         favoriteButton.heightAnchor.constraint(equalTo: favoriteButton.widthAnchor).isActive = true
-        favoriteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
+        favoriteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.15).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.size.width * 0.1).isActive = true
         favoriteButton.centerYAnchor.constraint(equalTo: movieName.centerYAnchor).isActive = true
 
@@ -95,8 +94,8 @@ extension MoviesCollectionViewCell: ViewCodable {
         movieName.trailingAnchor.constraint(equalTo: self.favoriteButton.leadingAnchor).isActive = true
 
         // Activity Indicator
-        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: self.movieImage.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.movieImage.centerYAnchor).isActive = true
         activityIndicator.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
         activityIndicator.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2).isActive = true
     }

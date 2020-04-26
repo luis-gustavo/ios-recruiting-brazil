@@ -12,7 +12,7 @@ import Combine
 class MoviesListViewController: UIViewController {
 
     // MARK: - Constants
-    let viewModel = MoviesListViewModel()
+    var viewModel = MoviesListViewModel()
     lazy var screen = MoviesListViewControllerSreen(frame: view.bounds, navigationController: self.navigationController)
     var delegate: MoviesListViewControllerDelegate?
     var movieImages = [Int: UIImage?]()
@@ -30,6 +30,13 @@ class MoviesListViewController: UIViewController {
         setup()
         fetchPopularMovies()
     }
+
+//    // MARK: - ViewWillAppear
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        viewModel = MoviesListViewModel()
+//        screen.collectionView.reloadData()
+//    }
 
     func fetchPopularMovies() {
         viewModel.popularMovies { movies in
@@ -114,7 +121,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
         } else {
             cell.movieImage.image = nil
             cell.showActivityIndicator()
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 self.viewModel.poster(posterPath: movie.posterPath) { data in
                     DispatchQueue.main.async {
                         let image = UIImage(data: data)
