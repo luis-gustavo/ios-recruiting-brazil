@@ -14,10 +14,9 @@ class MoviesListViewController: UIViewController {
     // MARK: - Constants
     let viewModel = MoviesListViewModel()
     lazy var screen = MoviesListViewControllerSreen(frame: view.bounds, navigationController: self.navigationController)
-    let cellId = "cell"
-    var movies = [Movie]()
-    var movieImages = [Int: UIImage?]()
     var delegate: MoviesListViewControllerDelegate?
+    var movieImages = [Int: UIImage?]()
+    var movies = [Movie]()
 
     // MARK: - LoadView
     override func loadView() {
@@ -25,6 +24,7 @@ class MoviesListViewController: UIViewController {
         self.view = screen
     }
 
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -34,6 +34,13 @@ class MoviesListViewController: UIViewController {
     func fetchPopularMovies() {
         viewModel.popularMovies { movies in
             self.movies = movies
+            self.movies.filter({ movie in
+                self.viewModel.favoritedMovies.contains(where: {
+                    $0.id == movie.id
+                })
+            }).forEach( {
+                $0.favorited = true
+            })
             DispatchQueue.main.async {
                 self.screen.collectionView.reloadData()
             }
@@ -103,7 +110,11 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
         cell.favoriteButton.tag = indexPath.row
         cell.favoriteButton.delegate = self
+        cell.favoriteButton.favoriteState = movie.favorited ? .favorited : .unfavorited
+
         cell.movieName.text = movie.title
+
+
         if let image = movieImages[indexPath.row] {
             cell.hideActivityIndicator()
             cell.movieImage.image = image
@@ -131,6 +142,14 @@ extension MoviesListViewController: UICollectionViewDataSource {
 extension MoviesListViewController: FavoriteButtonDelegate {
     func button(_ sender: FavoriteButton, with tag: Int, didChangeToState state: FavoriteButton.FavoriteState) {
 
-        
+        let movie = movies[tag]
+        viewModel.favoriteMovie(movie) { result in
+            switch result {
+            case .failure(_): break
+            case .success():
+                self.movies[tag].favorited = true
+                self.screen.collectionView.reloadData()
+            }
+        }
     }
 }

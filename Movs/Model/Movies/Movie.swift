@@ -26,6 +26,7 @@ class Movie: Codable {
     let genreIds: [Int]
     let overview: String
     var favorited = false
+    let id: Int
 
     enum CodingKeys: String, CodingKey {
         case title = "title"
@@ -33,6 +34,7 @@ class Movie: Codable {
         case releaseDate = "release_date"
         case genreIds = "genre_ids"
         case overview = "overview"
+        case id
     }
 
     required init(from decoder: Decoder) throws {
@@ -43,6 +45,7 @@ class Movie: Codable {
         _releaseDate = try container.decode(String.self, forKey: .releaseDate)
         genreIds = try container.decode([Int].self, forKey: .genreIds)
         overview = try container.decode(String.self, forKey: .overview)
+        id = try container.decode(Int.self, forKey: .id)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -53,6 +56,7 @@ class Movie: Codable {
         try container.encode(_releaseDate, forKey: .releaseDate)
         try container.encode(genreIds, forKey: .genreIds)
         try container.encode(overview, forKey: .overview)
+        try container.encode(id, forKey: .id)
     }
 
 }
@@ -60,6 +64,6 @@ class Movie: Codable {
 extension Movie: CustomStringConvertible {
 
     var description: String {
-        return "Title: \(title) \nPoster Path: \(posterPath) \nGenreIds: \(genreIds) \n Release Year: \(releaseYear) \nOverview: \(overview) \n\n\n"
+        return "Id: \(id) \nTitle: \(title) \nPoster Path: \(posterPath) \nGenreIds: \(genreIds) \n Release Year: \(releaseYear) \nOverview: \(overview) \n\n\n"
     }
 }

@@ -12,6 +12,20 @@ import Combine
 class MoviesListViewModel {
 
     private var subscriptions = [AnyCancellable]()
+    var favoritedMovies = [Movie]()
+
+    init() {
+        Database.shared.retrieveData(completion: { result in
+            switch result {
+            case .failure(let databaseError):
+                assertionFailure("Database error, unable to retrieve favorited movies")
+                debugPrint(databaseError)
+            case .success(let movies):
+                print(movies)
+                self.favoritedMovies = movies
+            }
+        })
+    }
 
     func popularMovies(completion: @escaping ([Movie]) -> Void) {
         Network
@@ -30,6 +44,11 @@ class MoviesListViewModel {
         }) { data in
             completion(data)
         }.store(in: &subscriptions)
+    }
+
+    func favoriteMovie(_ movie: Movie, completion: @escaping (Result<Void, DatabaseError>) -> Void) {
+        favoritedMovies.append(movie)
+        Database.shared.saveData(favoritedMovies, completion: completion)
     }
 
 }

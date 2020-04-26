@@ -30,7 +30,7 @@ class Database {
 
         do {
             guard let data = UserDefaults.standard.data(forKey: key) else {
-                completion(.failure(.emptyResult))
+                completion(.success([]))
                 return
             }
             let movies = try JSONDecoder().decode([Movie].self, from: data)
