@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Movie: Decodable {
+class Movie: Codable {
 
     let title: String
     let posterPath: String
@@ -43,6 +43,16 @@ class Movie: Decodable {
         _releaseDate = try container.decode(String.self, forKey: .releaseDate)
         genreIds = try container.decode([Int].self, forKey: .genreIds)
         overview = try container.decode(String.self, forKey: .overview)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(title, forKey: .title)
+        try container.encode(posterPath, forKey: .posterPath)
+        try container.encode(_releaseDate, forKey: .releaseDate)
+        try container.encode(genreIds, forKey: .genreIds)
+        try container.encode(overview, forKey: .overview)
     }
 
 }

@@ -45,7 +45,7 @@ class FavoriteButton: UIButton {
     // MARK: - Methods
     @objc private func buttonClicked() {
         favoriteState = favoriteState == .favorited ? .unfavorited : .favorited
-        delegate?.button(self, didChangeToState: favoriteState)
+        delegate?.button(self, with: tag, didChangeToState: favoriteState)
     }
 
     private func didChange(to state: FavoriteButton.FavoriteState) {

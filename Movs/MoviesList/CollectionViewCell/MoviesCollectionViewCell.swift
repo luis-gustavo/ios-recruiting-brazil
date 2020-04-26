@@ -26,8 +26,8 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         return movieName
     }()
 
-    lazy var favoriteButton: UIButton = {
-        let favoriteButton = UIButton(frame: .zero)
+    lazy var favoriteButton: FavoriteButton = {
+        let favoriteButton = FavoriteButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         return favoriteButton
     }()

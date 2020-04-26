@@ -101,6 +101,8 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
 
+        cell.favoriteButton.tag = indexPath.row
+        cell.favoriteButton.delegate = self
         cell.movieName.text = movie.title
         if let image = movieImages[indexPath.row] {
             cell.hideActivityIndicator()
@@ -124,4 +126,11 @@ extension MoviesListViewController: UICollectionViewDataSource {
         return cell
     }
 
+}
+
+extension MoviesListViewController: FavoriteButtonDelegate {
+    func button(_ sender: FavoriteButton, with tag: Int, didChangeToState state: FavoriteButton.FavoriteState) {
+
+        
+    }
 }
