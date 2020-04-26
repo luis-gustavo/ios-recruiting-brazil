@@ -23,10 +23,9 @@ class MovieDetailViewControllerScreen: UIView {
         return nameLabel
     }()
 
-    lazy var favoriteButton: UIButton = {
-        let favoriteButton = UIButton(frame: .zero)
+    lazy var favoriteButton: FavoriteButton = {
+        let favoriteButton = FavoriteButton(frame: .zero)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(UIImage(named: "favorite_empty"), for: .normal)
         return favoriteButton
     }()
 

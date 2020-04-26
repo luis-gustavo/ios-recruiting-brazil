@@ -1,5 +1,5 @@
 //
-//  FavoriteButtonDelegate.swift
+//  MovieDetailsViewControllerDelegate.swift
 //  Movs
 //
 //  Created by Luis Gustavo Avelino de Lima Jacinto on 26/04/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol FavoriteButtonDelegate {
-    func button(_ sender: FavoriteButton, with tag: Int)
+protocol MovieDetailsViewControllerDelegate {
+    func dismissDetailsViewController(movie: Movie, favoritedMovies: [Movie])
 }

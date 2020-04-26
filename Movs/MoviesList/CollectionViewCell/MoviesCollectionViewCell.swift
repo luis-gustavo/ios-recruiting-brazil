@@ -34,6 +34,7 @@ class MoviesCollectionViewCell: UICollectionViewCell {
 
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(frame: .zero)
+        activityIndicator.style = .large
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()

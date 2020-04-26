@@ -9,5 +9,5 @@
 import UIKit
 
 protocol MoviesListViewControllerDelegate {
-    func showDetail(for movie: Movie, with poster: UIImage?)
+    func showDetail(for movie: Movie, with poster: UIImage?, favoritedMovies: [Movie])
 }

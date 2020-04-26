@@ -46,9 +46,22 @@ class MoviesListViewModel {
         }.store(in: &subscriptions)
     }
 
-    func favoriteMovie(_ movie: Movie, completion: @escaping (Result<Void, DatabaseError>) -> Void) {
-        favoritedMovies.append(movie)
-        Database.shared.saveData(favoritedMovies, completion: completion)
-    }
+    func favoriteMovie(_ movie: Movie, completion: @escaping () -> Void) {
 
+        let shouldFavorite = favoritedMovies.contains(where: { $0.id == movie.id})
+
+        switch !shouldFavorite {
+        case false:
+            guard let index = favoritedMovies.firstIndex(where: { $0.id == movie.id }) else {
+                fatalError("This index must exist. If it doesn't, the app has an logic problem")
+            }
+            favoritedMovies.remove(at: index)
+        case true:
+            favoritedMovies.append(movie)
+        }
+
+        Database.shared.saveData(favoritedMovies, completion: { _ in
+            completion()
+        })
+    }
 }

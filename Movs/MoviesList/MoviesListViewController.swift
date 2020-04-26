@@ -34,13 +34,6 @@ class MoviesListViewController: UIViewController {
     func fetchPopularMovies() {
         viewModel.popularMovies { movies in
             self.movies = movies
-            self.movies.filter({ movie in
-                self.viewModel.favoritedMovies.contains(where: {
-                    $0.id == movie.id
-                })
-            }).forEach( {
-                $0.favorited = true
-            })
             DispatchQueue.main.async {
                 self.screen.collectionView.reloadData()
             }
@@ -67,7 +60,7 @@ extension MoviesListViewController: UICollectionViewDelegate {
         let movie = movies[indexPath.row]
         let poster = movieImages[indexPath.row] ?? nil
 
-        delegate?.showDetail(for: movie, with: poster)
+        delegate?.showDetail(for: movie, with: poster, favoritedMovies: viewModel.favoritedMovies)
     }
 
 }
@@ -110,10 +103,10 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
         cell.favoriteButton.tag = indexPath.row
         cell.favoriteButton.delegate = self
-        cell.favoriteButton.favoriteState = movie.favorited ? .favorited : .unfavorited
+        let favorited = viewModel.favoritedMovies.contains(where: { $0.id == movie.id })
+        cell.favoriteButton.favoriteState = favorited ? .favorited : .unfavorited
 
         cell.movieName.text = movie.title
-
 
         if let image = movieImages[indexPath.row] {
             cell.hideActivityIndicator()
@@ -140,16 +133,11 @@ extension MoviesListViewController: UICollectionViewDataSource {
 }
 
 extension MoviesListViewController: FavoriteButtonDelegate {
-    func button(_ sender: FavoriteButton, with tag: Int, didChangeToState state: FavoriteButton.FavoriteState) {
+    func button(_ sender: FavoriteButton, with tag: Int) {
 
         let movie = movies[tag]
-        viewModel.favoriteMovie(movie) { result in
-            switch result {
-            case .failure(_): break
-            case .success():
-                self.movies[tag].favorited = true
-                self.screen.collectionView.reloadData()
-            }
+        viewModel.favoriteMovie(movie) {
+            self.screen.collectionView.reloadData()
         }
     }
 }

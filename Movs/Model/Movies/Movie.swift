@@ -25,7 +25,6 @@ class Movie: Codable {
     }
     let genreIds: [Int]
     let overview: String
-    var favorited = false
     let id: Int
 
     enum CodingKeys: String, CodingKey {

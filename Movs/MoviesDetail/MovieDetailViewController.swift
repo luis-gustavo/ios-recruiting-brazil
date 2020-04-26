@@ -14,12 +14,14 @@ class MovieDetailsViewController: UIViewController {
     lazy var screen = MovieDetailViewControllerScreen(frame: view.bounds)
     let movie: Movie
     let poster: UIImage?
-    let viewModel = MovieDetailViewModel()
+    let viewModel: MovieDetailViewModel
+    var delegate: MovieDetailsViewControllerDelegate?
 
     // MARK: - Inits
-    init(movie: Movie, poster: UIImage?) {
+    init(movie: Movie, poster: UIImage?, favoritedMovies: [Movie]) {
         self.movie = movie
         self.poster = poster
+        self.viewModel = MovieDetailViewModel(favoritedMovies: favoritedMovies)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -39,6 +41,15 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         setup()
     }
+
+    // MARK: - ViewWillDisappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            delegate?.dismissDetailsViewController(movie: movie, favoritedMovies: viewModel.favoritedMovies)
+        }
+    }
 }
 
 extension MovieDetailsViewController {
@@ -49,6 +60,7 @@ extension MovieDetailsViewController {
         setupMovieSummary()
         setupGenres()
         setupNavigationController()
+        setupFavoriteButton()
     }
 
     func setupMovieNameLabel() {
@@ -78,5 +90,21 @@ extension MovieDetailsViewController {
 
     func setupNavigationController() {
         self.title = "\(movie.title)"
+    }
+
+    func setupFavoriteButton() {
+        screen.favoriteButton.delegate = self
+        let favorited = viewModel.favoritedMovies.contains(where: { $0.id == movie.id })
+        screen.favoriteButton.favoriteState = favorited ? .favorited : .unfavorited
+    }
+}
+
+extension MovieDetailsViewController: FavoriteButtonDelegate {
+    func button(_ sender: FavoriteButton, with tag: Int) {
+
+        viewModel.favoriteMovie(movie) {
+            let favorited = self.viewModel.favoritedMovies.contains(where: { $0.id == self.movie.id })
+            self.screen.favoriteButton.favoriteState = favorited ? .favorited : .unfavorited
+        }
     }
 }
