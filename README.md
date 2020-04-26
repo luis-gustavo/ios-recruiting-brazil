@@ -13,8 +13,8 @@ It was created with the latest Apple's technologies like and Combine.
 The architecture used on this project was MVVM because of the reasons below:
 
 * Easy to use
-* Distriuted responsabilities 
-* Easier to test
+* Distributed responsabilities 
+* Easy to test
 * Matches well with Combine
 
 ## Continuous Integration
